@@ -15,12 +15,10 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-
-
+	
 	<dependencies>
 
 		<!-- Here are new depemdancy add -->
-
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
