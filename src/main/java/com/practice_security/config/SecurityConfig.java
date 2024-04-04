@@ -86,16 +86,23 @@ public class SecurityConfig {
         http.csrf().disable()
             .cors().disable()
             .authorizeRequests(auth -> auth
-                .requestMatchers("/auth/login", "/auth/create-user").permitAll()
-                .requestMatchers("/test/users").hasRole("ADMIN")
+            	.requestMatchers("/auth/login/**", "/auth/create-user/**").permitAll()
+                .requestMatchers("/test/users/**").hasAuthority("ADMIN")// Only users with role "ADMIN" can access this endpoint
                 .anyRequest().authenticated()
-                )
+            ).userDetailsService(customUserDetailService)
             .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-           http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        	
+        //change in code
+        .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+    
+   
+    
+ 
+    
+    
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

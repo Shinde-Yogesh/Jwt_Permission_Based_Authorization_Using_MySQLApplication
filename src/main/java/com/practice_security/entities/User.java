@@ -38,8 +38,7 @@ public class User implements UserDetails {
 
 	private String about;
 
-
-    @Column(name = "role")
+	@Column(name = "role")
     private String role;
 
 //	// code change
