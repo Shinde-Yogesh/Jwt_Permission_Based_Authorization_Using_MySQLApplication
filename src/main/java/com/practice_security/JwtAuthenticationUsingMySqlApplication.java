@@ -8,8 +8,5 @@ public class JwtAuthenticationUsingMySqlApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JwtAuthenticationUsingMySqlApplication.class, args);
-		
-		System.out.println("Program is Running...");
-	}
-
+		}
 }

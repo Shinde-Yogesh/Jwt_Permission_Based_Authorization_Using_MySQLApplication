@@ -83,11 +83,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			} else {
 				logger.info("Validation fails !!");
 			}
-
 		}
-
 		filterChain.doFilter(request, response);
-
 	}
-
 }

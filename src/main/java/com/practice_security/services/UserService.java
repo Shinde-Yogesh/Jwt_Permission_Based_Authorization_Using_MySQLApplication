@@ -1,10 +1,11 @@
 package com.practice_security.services;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +33,10 @@ public class UserService {
 		user.setUserId(UUID.randomUUID().toString());
 		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole())));
 		return userRepository.save(user);
 		
 	}
+	
 
 }

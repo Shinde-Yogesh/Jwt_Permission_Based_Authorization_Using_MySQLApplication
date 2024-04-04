@@ -1,4 +1,3 @@
-
 package com.practice_security.models;
 
 import lombok.Builder;
@@ -41,6 +40,4 @@ public class JwtResponse {
 	public String toString() {
 		return "JwtResponse [jwtToken=" + jwtToken + ", username=" + username + "]";
 	}
-	
-
 }

@@ -1,4 +1,3 @@
-
 package com.practice_security.controller;
 
 import org.slf4j.Logger;
@@ -73,10 +72,12 @@ public class AuthController {
 	}
 
 	@PostMapping("/create-user")
-	public User createUser(@RequestBody User user)
-	{
-		
-		return userService.createUser(user);
+	public User createUser(@RequestBody User user) {
+	    // Set the role here if it's included in the request body
+	    // Example: user.setRole("ROLE_USER");
+		user.setRole(user.getRole());
+	    return userService.createUser(user);
 	}
+
 }
 

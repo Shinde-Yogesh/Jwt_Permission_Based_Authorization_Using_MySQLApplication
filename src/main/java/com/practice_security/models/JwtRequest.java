@@ -40,7 +40,4 @@ public class JwtRequest {
 	public String toString() {
 		return "JwtRequest [email=" + email + ", password=" + password + "]";
 	}
-	
-	
-
 }
