@@ -13,14 +13,12 @@ import com.practice_security.services.UserService;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-	
+
 	@Autowired
 	private UserService userService;
-	
-	
+
 	@GetMapping("/users")
-	public List<User> getUsers()
-	{
+	public List<User> getUsers() {
 		return userService.getUsers();
 	}
 

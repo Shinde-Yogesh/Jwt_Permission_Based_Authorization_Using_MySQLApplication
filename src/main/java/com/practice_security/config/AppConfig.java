@@ -14,19 +14,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class AppConfig {
 
-	/*
-	  Creating the CustomUserDetailService class using this created user
-	
-	@Bean
-	public UserDetailsService userDetailsService() {
-
-		UserDetails user = User.builder().username("Aditya").password(passwordEncoder().encode("Karikalam"))
-				.roles("ADMIN").build();
-		return new InMemoryUserDetailsManager(user);
-
-	}
-	*/
-
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

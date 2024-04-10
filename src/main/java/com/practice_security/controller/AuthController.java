@@ -1,4 +1,3 @@
-
 package com.practice_security.controller;
 
 import org.slf4j.Logger;
@@ -37,7 +36,7 @@ public class AuthController {
 	private JwtHelper helper;
 
 	private Logger logger = LoggerFactory.getLogger(AuthController.class);
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -49,9 +48,7 @@ public class AuthController {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
 		String token = this.helper.generateToken(userDetails);
 
-		JwtResponse response = JwtResponse.builder()
-						.jwtToken(token).username(userDetails.getUsername())
-						.build();
+		JwtResponse response = JwtResponse.builder().jwtToken(token).username(userDetails.getUsername()).build();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
@@ -73,10 +70,11 @@ public class AuthController {
 	}
 
 	@PostMapping("/create-user")
-	public User createUser(@RequestBody User user)
-	{
-		
+	public User createUser(@RequestBody User user) {
+		// Set the role here if it's included in the request body
+		// Example: user.setRole("ROLE_USER");
+		user.setRole(user.getRole());
 		return userService.createUser(user);
 	}
-}
 
+}
