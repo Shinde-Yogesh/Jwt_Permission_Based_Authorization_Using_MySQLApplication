@@ -14,29 +14,25 @@ import com.practice_security.repositories.UserRepository;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
-	
-	public List<User> getUsers()
-	{
+
+	public List<User> getUsers() {
 		return userRepository.findAll();
 	}
-	
-	public User createUser(User user)
-	{
-		
+
+	public User createUser(User user) {
+
 		user.setUserId(UUID.randomUUID().toString());
-		
+
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setAuthorities(Collections.singletonList(new SimpleGrantedAuthority(user.getRole())));
 		return userRepository.save(user);
-		
+
 	}
-	
 
 }

@@ -23,92 +23,43 @@ import jakarta.annotation.security.PermitAll;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private JwtAuthenticationEntryPoint point;
+	@Autowired
+	private JwtAuthenticationEntryPoint point;
 
-    @Autowired
-    private JwtAuthenticationFilter filter;
+	@Autowired
+	private JwtAuthenticationFilter filter;
 
-    @Autowired
-    private CustomUserDetailService customUserDetailService;
+	@Autowired
+	private CustomUserDetailService customUserDetailService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserService userService;
-    /* Running code
-    @SuppressWarnings("deprecation")
+	@Autowired
+	private UserService userService;
+
+	@SuppressWarnings("deprecation")
 	@Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.disable())
-            .authorizeRequests(auth -> auth
-                .requestMatchers("/test/**").permitAll() // Restrict access to "/test/**" endpoints to users with ROLE_USER
-                .requestMatchers("/auth/login").permitAll()
-                .requestMatchers("/auth/create-user").permitAll()
-                .requestMatchers("/test/users").hasRole("ADMIN")
-                .anyRequest().authenticated()
-            )
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        
-        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-        
-        return http.build();
-    }
-    */
-/*  working code
-    @SuppressWarnings("deprecation")
-   	@Bean
-       public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-           http.csrf(csrf -> csrf.disable())
-               .cors(cors -> cors.disable())
-               .authorizeRequests(auth -> auth
-                   .requestMatchers("/test/**").permitAll() // Restrict access to "/test/**" endpoints to users with ROLE_USER
-                   .requestMatchers("/auth/login").permitAll()
-                   .requestMatchers("/test/users").hasRole("ADMIN")
-                   .requestMatchers("/auth/create-user").permitAll()
-                   .anyRequest().authenticated()
-               )
-               .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-               .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-           
-           http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-           
-           return http.build();
-       }
-*/
-    
-    @SuppressWarnings("deprecation")
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .cors().disable()
-            .authorizeRequests(auth -> auth
-            	.requestMatchers("/auth/login/**", "/auth/create-user/**").permitAll()
-                .requestMatchers("/test/users/**").hasAuthority("ADMIN")// Only users with role "ADMIN" can access this endpoint
-                .anyRequest().authenticated()
-            ).userDetailsService(customUserDetailService)
-            .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        	
-        //change in code
-        .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
-    
-   
-    
- 
-    
-    
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(customUserDetailService);
-        provider.setPasswordEncoder(passwordEncoder);
-        return provider;
-    }
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.csrf().disable().cors().disable()
+				.authorizeRequests(auth -> auth.requestMatchers("/auth/login/**", "/auth/create-user/**").permitAll()
+						.requestMatchers("/test/users/**").hasAuthority("ADMIN")// Only users with role "ADMIN" can
+																				// access this endpoint
+						.anyRequest().authenticated())
+				.userDetailsService(customUserDetailService).exceptionHandling(ex -> ex.authenticationEntryPoint(point))
+				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+				// change in code
+				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+		return http.build();
+	}
+
+	@Bean
+	public DaoAuthenticationProvider daoAuthenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(customUserDetailService);
+		provider.setPasswordEncoder(passwordEncoder);
+		return provider;
+	}
 
 }

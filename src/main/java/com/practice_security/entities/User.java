@@ -39,31 +39,27 @@ public class User implements UserDetails {
 	private String about;
 
 	@Column(name = "role")
-    private String role;
+	private String role;
 
 //	// code change
 //	@Override
 //	public Collection<? extends GrantedAuthority> getAuthorities() {
 //		return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
 //	}
-	
 
-    // Other fields and methods...
+	// Other fields and methods...
 
-    private Collection<? extends GrantedAuthority> authorities;
+	private Collection<? extends GrantedAuthority> authorities;
 
-    // Getter and setter for authorities
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
+	// Getter and setter for authorities
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
-
-   
+	public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+		this.authorities = authorities;
+	}
 
 	@Override
 	public String getUsername() {
@@ -94,5 +90,5 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 }

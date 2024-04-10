@@ -4,11 +4,10 @@ import lombok.Builder;
 
 @Builder
 public class JwtResponse {
-	
+
 	private String jwtToken;
 	private String username;
-	
-	
+
 	public String getJwtToken() {
 		return jwtToken;
 	}
@@ -24,7 +23,7 @@ public class JwtResponse {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public JwtResponse(String jwtToken, String username) {
 		super();
 		this.jwtToken = jwtToken;
